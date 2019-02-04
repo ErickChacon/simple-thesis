@@ -2,11 +2,11 @@
 % DEFINING BASIC INFORMATION ABOUT THE CLASS
 % ============================================================================
 
-\newcommand{\LancsThesisUpdate}{2019/02/03}
-\newcommand{\LancsThesisVersion}{1.0}
+\newcommand{\SimpleThesisUpdate}{2019/02/03}
+\newcommand{\SimpleThesisVersion}{1.0}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{LancsThesis}[\LancsThesisUpdate\space Version
-\LancsThesisVersion\space by Erick Chacon Montalvan, School of Statistics]
+\ProvidesClass{SimpleThesis}[\SimpleThesisUpdate\space Version
+\SimpleThesisVersion\space by Erick Chacon Montalvan, School of Statistics]
 % Allow give margin options.
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions
@@ -70,7 +70,7 @@
 \gdef\@UniLocation{}
 \gdef\@UniLogo{}
 \gdef\@UniUniversity{}
-\gdef\@LancsThesisYear{}
+\gdef\@SimpleThesisYear{}
 \gdef\@UniMajor{}
 \gdef\@UniDepartment{}
 \gdef\@UniDocumentType{}
@@ -84,7 +84,7 @@
 \newcommand{\location}[1]      {\ifx\empty#1\else \gdef\@UniLocation{#1} \fi}
 \newcommand{\logo}[1]          {\ifx\empty#1\else \gdef\@UniLogo{#1} \fi}
 \newcommand{\university}[1]    {\ifx\empty#1\else \gdef\@UniUniversity{#1} \fi}
-\newcommand{\thesisYear}[1]    {\ifx\empty#1\else \gdef\@LancsThesisYear{#1} \fi}
+\newcommand{\thesisYear}[1]    {\ifx\empty#1\else \gdef\@SimpleThesisYear{#1} \fi}
 \newcommand{\major}[1]         {\ifx\empty#1\else \gdef\@UniMajor{#1} \fi}
 \newcommand{\department}[1]    {\ifx\empty#1\else \gdef\@UniDepartment{#1} \fi}
 \newcommand{\documentType}[1]  {\ifx\empty#1\else \gdef\@UniDocumentType{#1} \fi}
@@ -97,7 +97,7 @@
 % Some commands to get the values of our variables
 \newcommand{\theLocation}{%
     \ifx\@UniLocation\@empty
-        \PackageError{LancsThesis}{'location' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'location' has not been defined}\@ehc
     \else
         \@UniLocation
     \fi
@@ -105,7 +105,7 @@
 
 \newcommand{\theLogo}{%
     \ifx\@UniLogo\@empty
-        \PackageError{LancsThesis}{'logo' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'logo' has not been defined}\@ehc
     \else
         \@UniLogo
     \fi
@@ -113,23 +113,23 @@
 
 \newcommand{\theUniversity}{%
     \ifx\@UniUniversity\@empty
-        \PackageError{LancsThesis}{'university' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'university' has not been defined}\@ehc
     \else
         \@UniUniversity
     \fi
 }
 
 \newcommand{\theThesisYear}{%
-    \ifx\LancsThesisYear\@empty
-        \PackageError{LancsThesis}{'thesisYear' has not been defined}\@ehc
+    \ifx\SimpleThesisYear\@empty
+        \PackageError{SimpleThesis}{'thesisYear' has not been defined}\@ehc
     \else
-        \@LancsThesisYear
+        \@SimpleThesisYear
     \fi
 }
 
 \newcommand{\theMajor}{%
     \ifx\@UniMajor\@empty
-        \PackageError{LancsThesis}{'major' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'major' has not been defined}\@ehc
     \else
         \@UniMajor
     \fi
@@ -137,7 +137,7 @@
 
 \newcommand{\theDepartment}{%
     \ifx\@UniDepartment\@empty
-        \PackageError{LancsThesis}{'department' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'department' has not been defined}\@ehc
     \else
         \@UniDepartment
     \fi
@@ -145,7 +145,7 @@
 
 \newcommand{\theDocumentType}{%
     \ifx\@UniDocumentType\@empty
-        \PackageError{LancsThesis}{'documentType' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'documentType' has not been defined}\@ehc
     \else
         \@UniDocumentType
     \fi
@@ -153,7 +153,7 @@
 
 \newcommand{\theAuthor}{%
     \ifx\@UniAuthor\@empty
-        \PackageError{LancsThesis}{'author' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'author' has not been defined}\@ehc
     \else
         \@UniAuthor
     \fi
@@ -161,7 +161,7 @@
 
 \newcommand{\theTitle}{%
     \ifx\@title\@empty
-        \PackageError{LancsThesis}{'title' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'title' has not been defined}\@ehc
     \else
         \@title
     \fi
@@ -169,7 +169,7 @@
 
 \newcommand{\theSupervisor}{%
     \ifx\@UniSupervisor\@empty
-        \PackageError{LancsThesis}{'supervisor' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'supervisor' has not been defined}\@ehc
     \else
         \@UniSupervisor
     \fi
@@ -186,7 +186,7 @@
 
 \newcommand{\theStyle}{%
     \ifx\@UniStyle\@empty
-        \PackageError{LancsThesis}{'style' has not been defined}\@ehc
+        \PackageError{SimpleThesis}{'style' has not been defined}\@ehc
     \else
         \@UniStyle
     \fi
