@@ -39,6 +39,7 @@
 %\usepackage{epstopdf}                                % You should install this
 %\usepackage{appendix}
 \usepackage{ifthen}
+\usepackage{xparse}
 
 % ============================================================================
 % NEW COMMANDS AND ENVIRONMENTS
@@ -59,6 +60,48 @@
 
 % Environment to make a fancy dedication in the thesis
 \newenvironment{dedication}{\phantom{}\begin{flushright}\begin{em}\begin{minipage}{0.5\textwidth}\raggedleft}{\end{minipage}\end{em}\end{flushright}}
+
+% % Environment for abstract
+% \newenvironment{abstract}[1][0.90]
+%   {
+%     \hspace{\dimexpr (- \parindent +  \textwidth / 2 - #1 \textwidth / 2)}
+%     \begin{minipage}{#1\textwidth}
+%       {\section*{\centering Abstract}}
+%       #1
+%   }
+%   {
+%     \end{minipage}
+%     {\ }\\[2ex]
+%   }
+
+% Environment for abstract
+\NewDocumentEnvironment{abstract}{o O{0.90} O{0.95}}
+  {
+    \hspace{\dimexpr (- \parindent +  \textwidth / 2 - #2 \textwidth / 2)}
+    \begin{minipage}{#2 \textwidth}
+      {\section*{\centering Abstract}}
+  }
+  {
+    \end{minipage}
+    {\ }\\[2ex]
+
+    \hspace{\dimexpr (- \parindent +  \textwidth / 2 - #3 \textwidth / 2)}
+    \begin{minipage}{#3 \textwidth}
+      \textbf{\textit{Keywords:}}
+      #1
+    \end{minipage}
+  }
+
+% Environment for Keywords:
+\newenvironment{keywords}[1][0.95]
+  {
+    \hspace{\dimexpr (- \parindent +  \textwidth / 2 - #1 \textwidth / 2)}
+    \begin{minipage}{#1\textwidth}
+      \textbf{\textit{Keywords:}}
+  }
+  {
+    \end{minipage}
+  }
 
 % Environment to make a list without indentation
 \newcounter{mycounter}
@@ -215,7 +258,7 @@
 
 % chapter title format
 \titleformat{\chapter}[display]
-{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\huge}
 \titlespacing*{\chapter}{0pt}{-25pt}{40pt}
 
 
@@ -226,8 +269,6 @@
 \renewcommand{\maketitle}{
   \ifthenelse{\equal{\theStyle}{\string 1}}
   {
-    % \clearpage
-    % \vspace*{\fill}
     \begin{titlepage}
       % \newgeometry{top=2cm,bottom=4cm,right=2.5cm,left=3cm}
       \pagestyle{fancy} % do not put neither header nor footer
@@ -259,12 +300,10 @@
         \else
           {\ }\\[9ex]
         \fi
-        {\large \theLocation}\\[3ex]
+        {\large \theLocation}\\[2ex]
         {\large \theThesisYear}\\
       \end{center}
     \end{titlepage}
-    % \vfill
-    % \clearpage
   }
   {
     \begin{titlepage}
