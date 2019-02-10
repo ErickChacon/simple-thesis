@@ -40,6 +40,8 @@
 %\usepackage{appendix}
 \usepackage{ifthen}
 \usepackage{xparse}
+% \RequirePackage{enumitem}
+% \RequirePackage{enumerate} % easily set margins
 
 % ============================================================================
 % NEW COMMANDS AND ENVIRONMENTS
@@ -89,7 +91,8 @@
     \begin{minipage}{#3 \textwidth}
       \textbf{\textit{Keywords:}}
       #1
-    \end{minipage}
+    \end{minipage}\par
+    {\ }\\[2ex]
   }
 
 % Environment for Keywords:
@@ -261,6 +264,43 @@
 {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\huge}
 \titlespacing*{\chapter}{0pt}{-25pt}{40pt}
 
+\newif\ifnewauthor
+\newauthortrue
+
+\def\chapterauthor[#1]#2{\ifnewauthor\sffamily\else, \fi
+       #2\textsuperscript{#1}%
+     \ifnewauthor\newauthorfalse\gdef\chapterauthors{#2}\else
+               \g@addto@macro\chapterauthors{, #2}\fi
+       \ignorespaces % to remove end of line spaces from
+                     % \chapterauthor[foo]{bar} input lines
+}
+
+\def\chapteraffil[#1]{\par\textsuperscript{#1}%
+}
+
+% \def\chapteraffil[#1]{\item[\textsuperscript{#1}]%
+% }
+
+% % \makeatletter
+% \newenvironment{affils}
+%    {%\addtocontents{toc}{\chapterauthors\string\par}%
+%    \begin{center}%[itemsep=0pt, parsep=0pt, labelsep=0pt]\centering}
+%    {\end{center}\par
+%     \global\newauthortrue
+%     \@nobreaktrue
+%     \aftergroup\normalfont}
+% % \makeatother
+
+\newenvironment{affils}
+   {%\addtocontents{toc}{\chapterauthors\string\par}%
+   \begin{center}}
+   {\end{center}\par
+    \global\newauthortrue
+    \@nobreaktrue
+    \aftergroup\normalfont}
+
+
+
 
 % ============================================================================
 % DEFINING THE TITLE PAGE
@@ -287,6 +327,7 @@
         \noindent \rule[5mm]{\linewidth}{0.5mm}
         {\large by}\\[2ex]
         {\Large \textbf \theAuthor}\\[3ex]
+        % {\Large \textbf \@author}\\[3ex]
         {\large Supervisor(s):}\\[2ex]
         {\Large \textbf \theSupervisor}\\[3ex]
 
