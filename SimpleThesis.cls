@@ -21,7 +21,7 @@
 %\usepackage[letterpaper,margin=1.25in]{geometry}      % Easily set margins
 \usepackage[toc,title,page]{appendix}                 % Configure appendix formatting
 \usepackage{tocloft}                                  % Configure ToC Lo{F,T} formatting
-\usepackage{indentfirst}                              % Always indent first paragraph
+% \usepackage{indentfirst}                              % Always indent first paragraph
 \usepackage{fancyhdr}                                 % Control header, footer position
 \usepackage{graphicx}                                 % Include figures
 \usepackage{setspace}                                 % Control spacing
@@ -77,34 +77,18 @@
 %   }
 
 % Environment for abstract
-\NewDocumentEnvironment{abstract}{o O{0.90} O{0.95}}
-  {
-    \hspace{\dimexpr (- \parindent +  \textwidth / 2 - #2 \textwidth / 2)}
-    \begin{minipage}{#2 \textwidth}
-      {\section*{\centering Abstract}}
-  }
-  {
-    \end{minipage}
-    {\ }\\[2ex]
+\NewDocumentEnvironment{abstract}{o O{0.05} O{0.025}}
+{
+  \section*{\centering Abstract}
+  \leftskip=#2\textwidth\rightskip=#2\textwidth
+}
+{
+  {\ }\\
 
-    \hspace{\dimexpr (- \parindent +  \textwidth / 2 - #3 \textwidth / 2)}
-    \begin{minipage}{#3 \textwidth}
-      \textbf{\textit{Keywords:}}
-      #1
-    \end{minipage}\par
-    {\ }\\[2ex]
-  }
-
-% Environment for Keywords:
-\newenvironment{keywords}[1][0.95]
-  {
-    \hspace{\dimexpr (- \parindent +  \textwidth / 2 - #1 \textwidth / 2)}
-    \begin{minipage}{#1\textwidth}
-      \textbf{\textit{Keywords:}}
-  }
-  {
-    \end{minipage}
-  }
+  \leftskip=#3\textwidth\rightskip=#3\textwidth
+  \noindent\textbf{\textit{Keywords:}}
+  #1\par
+}
 
 % Environment to make a list without indentation
 \newcounter{mycounter}
@@ -125,6 +109,7 @@
 \gdef\@UniSupervisor{}
 \gdef\@subtitle{}
 \gdef\@UniStyle{1}
+\gdef\@UniChapterPreamble{}
 
 % Some commands to set our variables
 \newcommand{\location}[1]      {\ifx\empty#1\else \gdef\@UniLocation{#1} \fi}
@@ -139,6 +124,7 @@
 \newcommand{\supervisor}[1]    {\ifx\empty#1\else \gdef\@UniSupervisor{#1} \fi}
 \newcommand{\subtitle}[1]      {\ifx\empty#1\else \gdef\@subtitle{#1} \fi}
 \newcommand{\style}[1]         {\ifx\empty#1\else \gdef\@UniStyle{#1} \fi}
+\newcommand{\chapterpreamble}[1]         {\ifx\empty\gdef\@UniChapterPreamble{}\else \gdef\@UniChapterPreamble{#1} \fi}
 
 % Some commands to get the values of our variables
 \newcommand{\theLocation}{%
@@ -259,11 +245,33 @@
 % just 'Contents'
 \renewcommand\contentsname{Table of Contents}
 
+\def\hrulefill{\leavevmode\leaders\hrule height 1.5pt\hfill\kern\z@}
+
 % chapter title format
 \titleformat{\chapter}[display]
-{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\huge}
-\titlespacing*{\chapter}{0pt}{-25pt}{40pt}
+{\normalfont}
+{
+  % {\huge\bfseries \chaptertitlename\ \thechapter}
+  % \ifx\@UniChapterPreamble\@empty\else
+  %   \hrulefill\\
+  %   % \rule{\textwidth}{1.5pt}
+  %   {\normalsize \@UniChapterPreamble}\\
+  %   \rule{\textwidth}{1.5pt}
+  % \fi
+  \ifx\@UniChapterPreamble\@empty\else
+    \rule{\textwidth}{1.5pt}
+    {\normalsize \@UniChapterPreamble}\\
+    \rule{\textwidth}{1.5pt}\\[5ex]
+  \fi
+  {\huge\bfseries \chaptertitlename\ \thechapter}
+}{20pt}
+{
+  \huge\bfseries
+}[\gdef\@UniChapterPreamble{}]
 
+\titlespacing*{\chapter}{0pt}{-25pt}{20pt}
+
+% authors and affils aper chapter
 \newif\ifnewauthor
 \newauthortrue
 
@@ -278,26 +286,27 @@
 \def\chapteraffil[#1]{\par\textsuperscript{#1}%
 }
 
-% \def\chapteraffil[#1]{\item[\textsuperscript{#1}]%
-% }
-
-% % \makeatletter
 % \newenvironment{affils}
-%    {%\addtocontents{toc}{\chapterauthors\string\par}%
-%    \begin{center}%[itemsep=0pt, parsep=0pt, labelsep=0pt]\centering}
+%    {\addtocontents{toc}{\chapterauthors\string\par}%
+%    \begin{center}}
 %    {\end{center}\par
 %     \global\newauthortrue
 %     \@nobreaktrue
 %     \aftergroup\normalfont}
-% % \makeatother
 
-\newenvironment{affils}
-   {%\addtocontents{toc}{\chapterauthors\string\par}%
+\newenvironment{affils}[1][\chapterauthors]
+{
+  \addtocontents{toc}{\leftskip=\cftsecindent\rightskip=\cftsecindent\textit{#1}\string\par}%
+  \addtocontents{toc}{\vskip1em}%
    \begin{center}}
    {\end{center}\par
     \global\newauthortrue
     \@nobreaktrue
     \aftergroup\normalfont}
+
+
+
+
 
 
 
