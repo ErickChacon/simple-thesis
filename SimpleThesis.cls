@@ -77,15 +77,25 @@
 %   }
 
 % Environment for abstract
-\NewDocumentEnvironment{abstract}{o O{0.05} O{0.025}}
+\NewDocumentEnvironment{abstract}{o O{toc} O{0.05} O{0.025}}
 {
+  \ifthenelse{\equal{#2}{notoc}}
+  {
+  \chapter*{\centering Abstract}
+  }
+  {
+  \addcontentsline{toc}{section}{Abstract}
   \section*{\centering Abstract}
-  \leftskip=#2\textwidth\rightskip=#2\textwidth
+  }
+  % \addcontentsline{toc}{#2}{Abstract}
+  % \addtocontents{toc}{\leftskip=\cftsecindent\rightskip=\cftsecindentAbstract\string\par}%
+  % \addtocontents{toc}{\vskip1em}%
+  \leftskip=#3\textwidth\rightskip=#3\textwidth
 }
 {
-  {\ }\\
+  \newline
 
-  \leftskip=#3\textwidth\rightskip=#3\textwidth
+  \leftskip=#4\textwidth\rightskip=#4\textwidth
   \noindent\textbf{\textit{Keywords:}}
   #1\par
 }
@@ -250,21 +260,23 @@
 % chapter title format
 \titleformat{\chapter}[display]
 {\normalfont}
-{
-  % {\huge\bfseries \chaptertitlename\ \thechapter}
-  % \ifx\@UniChapterPreamble\@empty\else
-  %   \hrulefill\\
-  %   % \rule{\textwidth}{1.5pt}
-  %   {\normalsize \@UniChapterPreamble}\\
-  %   \rule{\textwidth}{1.5pt}
-  % \fi
-  \ifx\@UniChapterPreamble\@empty\else
-    \rule{\textwidth}{1.5pt}
-    {\normalsize \@UniChapterPreamble}\\
-    \rule{\textwidth}{1.5pt}\\[5ex]
-  \fi
+{\doublespacing
   {\huge\bfseries \chaptertitlename\ \thechapter}
-}{20pt}
+  \ifx\@UniChapterPreamble\@empty\else
+    \hrulefill\\
+    % \rule{\textwidth}{1.5pt}
+    {\normalsize \@UniChapterPreamble}\\
+    \rule{\textwidth}{1.5pt}
+  \fi
+  % \ifx\@UniChapterPreamble\@empty\else
+  %   \rule{\textwidth}{1.5pt}
+  %   {\normalsize \@UniChapterPreamble}\\
+  %   \rule{\textwidth}{1.5pt}\\[5ex]
+  % \fi
+  % {\huge\bfseries \chaptertitlename\ \thechapter}
+}
+{0pt}
+% {20pt}
 {
   \huge\bfseries
 }[\gdef\@UniChapterPreamble{}]
